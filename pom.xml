@@ -826,5 +826,25 @@ and
         <jenkins.version>2.479.1</jenkins.version>
       </properties>
     </profile>
+    <profile>
+      <id>default-jenkins-java-opts</id>
+      <activation>
+        <property>
+          <name>!env.JENKINS_JAVA_OPTS</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <environmentVariables>
+                <JENKINS_JAVA_OPTS>-Dhudson.model.UsageStatistics.disabled=true -Dcom.cloudbees.analytics.gatherer.Sender.disabled=true -Djenkins.security.FIPS140.COMPLIANCE=true</JENKINS_JAVA_OPTS>
+              </environmentVariables>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
 </project>
